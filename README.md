@@ -2,6 +2,8 @@
 
 *SBT plugin to ease the launch of [Ammonite](https://github.com/lihaoyi/Ammonite)*
 
+[![Build Status](https://travis-ci.org/alexarchambault/sbt-ammonite.svg)](https://travis-ci.org/alexarchambault/sbt-ammonite)
+
 **sbt-ammonite** is a SBT plugin that adds a `repl` command to SBT,
 that launches an [Ammonite](https://github.com/lihaoyi/Ammonite) session
 against the current project.
