@@ -17,7 +17,7 @@ resolvers ++= Seq(
   Resolver.sonatypeRepo("snapshots")
 )
 
-addSbtPlugin("com.github.alexarchambault" %% "ammonite-sbt" % "0.2.7-SNAPSHOT")
+addSbtPlugin("com.github.alexarchambault" %% "ammonite-sbt" % "0.1.0-SNAPSHOT")
 ```
 
 Then at the prompt of a SBT project, type
