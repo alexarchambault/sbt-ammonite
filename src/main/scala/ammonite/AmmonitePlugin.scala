@@ -31,7 +31,7 @@ object AmmonitePlugin extends AutoPlugin {
         Resolver.sonatypeRepo("releases"),
         Resolver.sonatypeRepo("snapshots")
       ),
-      libraryDependencies += "com.github.alexarchambault" %% "ammonite-repl" % (ammoniteVersion in Runtime).value cross CrossVersion.full,
+      libraryDependencies += "com.github.alexarchambault.tmp" %% "ammonite-repl" % (ammoniteVersion in Runtime).value cross CrossVersion.full,
       connectInput := true
     )
   ) ++ Seq(
