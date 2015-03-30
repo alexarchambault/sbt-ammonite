@@ -27,6 +27,10 @@ object AmmonitePlugin extends AutoPlugin {
         the classDirectory of the default scope in runMain below */
       classDirectory := crossTarget.value / "classes",
       /* Adding ammonite-repl dependency */
+      resolvers ++= Seq(
+        Resolver.sonatypeRepo("releases"),
+        Resolver.sonatypeRepo("snapshots")
+      ),
       libraryDependencies += "com.github.alexarchambault" %% "ammonite-repl" % (ammoniteVersion in Runtime).value cross CrossVersion.full,
       connectInput := true
     )
