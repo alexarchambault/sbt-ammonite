@@ -32,6 +32,7 @@ object AmmonitePlugin extends AutoPlugin {
         Resolver.sonatypeRepo("snapshots")
       ),
       libraryDependencies += "com.github.alexarchambault.tmp" %% "ammonite-repl" % (ammoniteVersion in Runtime).value cross CrossVersion.full,
+      ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) },
       connectInput := true
     )
   ) ++ Seq(
