@@ -26,7 +26,7 @@ repl
 ```
 instead of `console`.
 
-Compatible with Scala 2.10.3 to 2.10.5, and 2.11.0 to 2.11.6 (but for 2.11.3).
+Compatible with Scala ~~2.10.3 to 2.10.5, and 2.11.0 to 2.11.6 (but for 2.11.3)~~ 2.10.5 and 2.11.6.
 
 Requires SBT >= 0.13.5 (for auto plugins).
 
