@@ -1,4 +1,4 @@
-name := "ammonite-sbt"
+name := "sbt-ammonite"
 
 sbtPlugin := true
 
