@@ -31,7 +31,13 @@ object AmmonitePlugin extends AutoPlugin {
         Resolver.sonatypeRepo("releases"),
         Resolver.sonatypeRepo("snapshots")
       ),
-      libraryDependencies += "com.github.alexarchambault.tmp" %% "ammonite-repl" % (ammoniteVersion in Runtime).value cross CrossVersion.full,
+      libraryDependencies ++= Seq(
+        "com.github.alexarchambault.tmp" %% "ammonite-repl" % (ammoniteVersion in Runtime).value cross CrossVersion.full,
+        // Forcing scala-reflect specifically to scalaVersion, to prevent
+        // any dependency to bump the scala-reflect version further (which typically
+        // causes binary compatibility issues)
+        "org.scala-lang" % "scala-reflect" % scalaVersion.value force()
+      ),
       ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) },
       connectInput := true
     )
