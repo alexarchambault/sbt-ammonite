@@ -17,7 +17,7 @@ resolvers ++= Seq(
   Resolver.sonatypeRepo("snapshots")
 )
 
-addSbtPlugin("com.github.alexarchambault" %% "ammonite-sbt" % "0.1.0-SNAPSHOT")
+addSbtPlugin("com.github.alexarchambault" %% "sbt-ammonite" % "0.1.0-SNAPSHOT")
 ```
 
 Then at the prompt of a SBT project, type
@@ -26,7 +26,7 @@ repl
 ```
 instead of `console`.
 
-Compatible with Scala ~~2.10.3 to 2.10.5, and 2.11.0 to 2.11.6 (but for 2.11.3)~~ 2.10.5 and 2.11.6.
+Compatible with Scala 2.10.3 to 2.10.5, and 2.11.0 to 2.11.6.
 
 Requires SBT >= 0.13.5 (for auto plugins).
 
