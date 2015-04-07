@@ -12,6 +12,13 @@ against the current project.
 
 Add to your `~/.sbt/0.13/plugins/build.sbt`,
 ```scala
+resolvers += Resolver.sonatypeRepo("releases")
+
+addSbtPlugin("com.github.alexarchambault" %% "sbt-ammonite" % "0.1.0-RC1")
+```
+
+For the development version, add instead
+```scala
 resolvers ++= Seq(
   Resolver.sonatypeRepo("releases"),
   Resolver.sonatypeRepo("snapshots")
