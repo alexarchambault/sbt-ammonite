@@ -32,7 +32,7 @@ object AmmonitePlugin extends AutoPlugin {
         Resolver.sonatypeRepo("snapshots")
       ),
       libraryDependencies ++= Seq(
-        "com.github.alexarchambault.tmp" %% "ammonite-repl" % (ammoniteVersion in Runtime).value cross CrossVersion.full,
+        "com.lihaoyi" %% "ammonite-repl" % (ammoniteVersion in Runtime).value cross CrossVersion.full,
         // Forcing scala-reflect specifically to scalaVersion, to prevent
         // any dependency to bump the scala-reflect version further (which typically
         // causes binary compatibility issues)
@@ -42,7 +42,7 @@ object AmmonitePlugin extends AutoPlugin {
       connectInput := true
     )
   ) ++ Seq(
-    ammoniteVersion := "0.2.7-SNAPSHOT",
+    ammoniteVersion := "0.2.9",
     repl <<= Def.taskDyn {
       /* Compiling the root project, so that its build products and those of its dependency sub-projects are available
          in the classpath */
