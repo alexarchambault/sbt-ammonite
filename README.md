@@ -12,30 +12,39 @@ against the current project.
 
 Add to your `~/.sbt/0.13/plugins/build.sbt`,
 ```scala
-resolvers += Resolver.sonatypeRepo("releases")
-
-addSbtPlugin("com.github.alexarchambault" %% "sbt-ammonite" % "0.1.0-RC1")
-```
-
-For the development version, add instead
-```scala
-resolvers ++= Seq(
-  Resolver.sonatypeRepo("releases"),
-  Resolver.sonatypeRepo("snapshots")
-)
+resolvers += Resolver.sonatypeRepo("snapshots")
 
 addSbtPlugin("com.github.alexarchambault" %% "sbt-ammonite" % "0.1.0-SNAPSHOT")
 ```
 
 Then at the prompt of a SBT project, type
 ```scala
-repl
+ammonite:run
 ```
 instead of `console`.
 
-Compatible with Scala 2.10.3 to 2.10.5, and 2.11.0 to 2.11.6.
+To include the test build products, type
+```scala
+ammonite-test:run
+```
+instead of `test:console`.
 
-Requires SBT >= 0.13.5 (for auto plugins).
+These two commands can be scoped along specific projects too, like
+```scala
+core/ammonite:run
+```
+or
+```scala
+generic/ammonite-test:run
+```
+
+Initial commands, specified with `initialCommands in console`,
+are also taken into account, and supplied to Ammonite as predef.
+
+Tested with SBT 0.13.9, and Scala 2.10.5 and 2.11.7. (Other Scala versions supported by Ammonite, and SBT down to 0.13.5 are expected
+to work too.)
+
+(Non-snapshot release in a few days.)
 
 ## Notice
 
