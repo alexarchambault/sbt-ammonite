@@ -4,53 +4,51 @@ import sbt._, Keys._
 
 object AmmonitePlugin extends AutoPlugin {
 
-  // Inspired by https://github.com/alexarchambault/sbt-notebook
+  /** Configuration under which Ammonite is run */
+  lazy val Ammonite = config("ammonite")
 
-  lazy val Ammonite = config("ammonite") extend (Compile, Runtime)
+  /** Configuration under which Ammonite is run along with tests */
+  lazy val AmmoniteTest = config("ammonite-test")
 
-  object autoImport {
-    val ammoniteVersion = settingKey[String]("Ammonite version")
-    val repl = taskKey[Unit]("Run an Ammonite REPL")
-  }
 
-  import autoImport._
+  val ammoniteVersion = settingKey[String]("Ammonite version")
+
 
   override def trigger = allRequirements
 
-  override lazy val projectSettings = inConfig(Ammonite)(
-    Defaults.compileSettings ++ Defaults.runnerSettings ++ Classpaths.ivyBaseSettings ++
+  override lazy val projectSettings =
+    ammoniteSettings(Ammonite, Compile) ++
+    ammoniteSettings(AmmoniteTest, Test)
+
+  def ammoniteSettings(ammoniteConf: Configuration, underlyingConf: Configuration) = inConfig(ammoniteConf)(
+    // Getting references to undefined settings when doing ammonite:run without these
+    Defaults.compileSettings ++
+
+    // Seems like the class path provided to ammonite:run doesn't take into account the libraryDependencies below
+    // without these
+    Classpaths.ivyBaseSettings ++
+
     Seq(
-      /* Overriding run and runMain defined by compileSettings so that they use the scoped fullClasspath */
+      ammoniteVersion := "0.4.5",
+
+      libraryDependencies += "com.lihaoyi" %% "ammonite-repl" % ammoniteVersion.value cross CrossVersion.full,
+
+      // Don't remember under which conditions these two were necessary
+      libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value force(),
+      ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) },
+
+      configuration := underlyingConf,
+
+      /* Overriding run and runMain defined by compileSettings so that they use fullClasspath of this scope (Ammonite),
+       * taking into account the extra libraryDependencies above. */
       run <<= Defaults.runTask(fullClasspath, mainClass in run, runner in run),
       runMain <<= Defaults.runMainTask(fullClasspath, runner in run),
-      /* Overriding classDirectory defined by compileSettings so that we are given
-        the classDirectory of the default scope in runMain below */
-      classDirectory := crossTarget.value / "classes",
-      /* Adding ammonite-repl dependency */
-      resolvers ++= Seq(
-        Resolver.sonatypeRepo("releases"),
-        Resolver.sonatypeRepo("snapshots")
-      ),
-      libraryDependencies ++= Seq(
-        "com.lihaoyi" %% "ammonite-repl" % (ammoniteVersion in Runtime).value cross CrossVersion.full,
-        // Forcing scala-reflect specifically to scalaVersion, to prevent
-        // any dependency to bump the scala-reflect version further (which typically
-        // causes binary compatibility issues)
-        "org.scala-lang" % "scala-reflect" % scalaVersion.value force()
-      ),
-      ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) },
+
+      mainClass := Some("ammonite.repl.Repl"),
+
+      /* Required for the input to be provided to Ammonite */
       connectInput := true
     )
-  ) ++ Seq(
-    ammoniteVersion := "0.2.9",
-    repl <<= Def.taskDyn {
-      /* Compiling the root project, so that its build products and those of its dependency sub-projects are available
-         in the classpath */
-      (compile in Runtime).value
-
-      val mainClass = "ammonite.repl.Repl"
-      (runMain in Ammonite).toTask(s" $mainClass")
-    }
   )
 
 }
