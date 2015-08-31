@@ -14,7 +14,7 @@ Add to your `~/.sbt/0.13/plugins/build.sbt`,
 ```scala
 resolvers += Resolver.sonatypeRepo("snapshots")
 
-addSbtPlugin("com.github.alexarchambault" %% "sbt-ammonite" % "0.1.0-SNAPSHOT")
+addSbtPlugin("com.github.alexarchambault" %% "sbt-ammonite" % "0.1.0")
 ```
 
 Then at the prompt of a SBT project, type
