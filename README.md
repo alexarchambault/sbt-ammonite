@@ -44,8 +44,6 @@ are also taken into account, and supplied to Ammonite as predef.
 Tested with SBT 0.13.9, and Scala 2.10.5 and 2.11.7. (Other Scala versions supported by Ammonite, and SBT down to 0.13.5 are expected
 to work too.)
 
-(Non-snapshot release in a few days.)
-
 ## Notice
 
 Copyright 2015, Alexandre Archambault
