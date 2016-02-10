@@ -4,6 +4,8 @@ import sbt.Attributed._
 import sbt.Project.Initialize
 import sbt._, Keys._
 
+import scala.util.Try
+
 object AmmonitePlugin extends AutoPlugin {
 
   /** Configuration under which Ammonite is run */
@@ -54,7 +56,7 @@ object AmmonitePlugin extends AutoPlugin {
     Classpaths.ivyBaseSettings ++
 
     Seq(
-      ammoniteVersion := "0.4.9",
+      ammoniteVersion := "0.5.4",
 
       libraryDependencies += "com.lihaoyi" %% "ammonite-repl" % ammoniteVersion.value cross CrossVersion.full,
 
@@ -70,7 +72,18 @@ object AmmonitePlugin extends AutoPlugin {
       run <<= runTask(fullClasspath, mainClass in run, runner in run, (initialCommands in console).map(defaultArgs)),
       runMain <<= Defaults.runMainTask(fullClasspath, runner in run),
 
-      mainClass := Some("ammonite.repl.Repl"),
+      mainClass := {
+        val isOldVersion = ammoniteVersion.value.split('.').take(3).map(s => Try(s.toInt).toOption) match {
+            case Array(Some(0), Some(minor), _) if minor <= 4 =>
+              true
+            case Array(Some(0), Some(5), Some(0)) =>
+              true
+            case _ =>
+              false
+          }
+
+        Some(if (isOldVersion) "ammonite.repl.Repl" else "ammonite.repl.Main")
+      },
 
       /* Required for the input to be provided to Ammonite */
       connectInput := true
