@@ -12,9 +12,9 @@ against the current project.
 
 Add to your `~/.sbt/0.13/plugins/build.sbt`,
 ```scala
-resolvers += Resolver.sonatypeRepo("snapshots")
+resolvers += Resolver.sonatypeRepo("releases")
 
-addSbtPlugin("com.github.alexarchambault" %% "sbt-ammonite" % "0.1.0")
+addSbtPlugin("com.github.alexarchambault" %% "sbt-ammonite" % "0.1.1")
 ```
 
 Then at the prompt of a SBT project, type
@@ -46,6 +46,6 @@ to work too.)
 
 ## Notice
 
-Copyright 2015, Alexandre Archambault
+Copyright 2015-16, Alexandre Archambault
 
 Released under a MIT license
