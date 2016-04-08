@@ -56,7 +56,7 @@ object AmmonitePlugin extends AutoPlugin {
     Classpaths.ivyBaseSettings ++
 
     Seq(
-      ammoniteVersion := "0.5.4",
+      ammoniteVersion := "0.5.7",
 
       libraryDependencies += "com.lihaoyi" %% "ammonite-repl" % ammoniteVersion.value cross CrossVersion.full,
 

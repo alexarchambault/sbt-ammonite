@@ -41,7 +41,7 @@ generic/ammonite-test:run
 Initial commands, specified with `initialCommands in console`,
 are also taken into account, and supplied to Ammonite as predef.
 
-Tested with SBT 0.13.9, and Scala 2.10.5 and 2.11.7. (Other Scala versions supported by Ammonite, and SBT down to 0.13.5 are expected
+Tested with SBT 0.13.9, and Scala 2.10.5, 2.11.7, and 2.11.8. (Other Scala versions supported by Ammonite, and SBT down to 0.13.5 are expected
 to work too.)
 
 ## Notice
