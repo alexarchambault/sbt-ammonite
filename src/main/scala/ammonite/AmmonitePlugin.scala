@@ -56,7 +56,15 @@ object AmmonitePlugin extends AutoPlugin {
     Classpaths.ivyBaseSettings ++
 
     Seq(
-      ammoniteVersion := "0.5.7",
+      ammoniteVersion := {
+        val fromEnv = sys.env.get("AMMONITE_VERSION")
+        def fromProps = sys.props.get("ammonite.version")
+        val default = "0.6.0"
+
+        fromEnv
+          .orElse(fromProps)
+          .getOrElse(default)
+      },
 
       libraryDependencies += "com.lihaoyi" %% "ammonite-repl" % ammoniteVersion.value cross CrossVersion.full,
 

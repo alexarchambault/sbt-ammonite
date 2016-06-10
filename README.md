@@ -44,6 +44,21 @@ are also taken into account, and supplied to Ammonite as predef.
 Tested with SBT 0.13.9, and Scala 2.10.5, 2.11.7, and 2.11.8. (Other Scala versions supported by Ammonite, and SBT down to 0.13.5 are expected
 to work too.)
 
+## Bumping the Ammonite version
+
+The Ammonite version is set via the `ammoniteVersion` key. It reads its value:
+- from the `AMMONITE_VERSION` environment variable if set, else
+- from the `ammonite.version` Java property if set, else it
+- fallbacks to an hard-coded default version (currently, `0.6.0`).
+
+Set the `AMMONITE_VERSION` environment variable or the `ammonite.version` Java
+property to bump the Ammonite version.
+
+## Known issues
+
+* Incompatible with the recent versions of `sbt-ensime` (from `0.3.2` to `0.5.0` at least, [#9](https://github.com/alexarchambault/sbt-ammonite/issues/9))
+* Incompatible with [`sbt-coursier`](https://get-coursier.io)
+
 ## Notice
 
 Copyright 2015-16, Alexandre Archambault
